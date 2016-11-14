@@ -5,9 +5,13 @@
  */
 package cpsc501_a3;
 
+// JDOM dependencies added; works
 import org.jdom2.*;
 
-// JDOM dependencies added; works
+// Required Java libraries
+import java.lang.reflect.*;
+import java.util.*;
+
 /**
  *
  * @author vektor
