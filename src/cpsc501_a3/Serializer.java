@@ -28,10 +28,11 @@ public class Serializer {
      *
      * @param obj
      * @return Serialized object in XML format
+     * @throws java.lang.Exception
      */
-    public Document serialize(Object obj) {
+    public Document serialize(Object obj) throws Exception {
         //
-        return null;  
+        return serializeHelper(obj, new Document(new Element("serialized")), new IdentityHashMap());  
     }
     
     // Programming Plan:
@@ -46,6 +47,10 @@ public class Serializer {
                     // Name
                     // Declaring Class -> get reflectively
                         // If field type is primitive, store as "value" element
+
+    private static Document serializeHelper(Object obj, Document document, IdentityHashMap identityHashMap) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     
