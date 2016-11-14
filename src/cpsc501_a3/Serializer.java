@@ -5,10 +5,18 @@
  */
 package cpsc501_a3;
 
+// JDOM dependencies added; works now
+import org.jdom.*;
 /**
  *
  * @author vektor
  */
 public class Serializer {
+    
+    // Assignment specification:
+    // Serialization will be invoked with the following method:
+    public org.jdom.Document serialize(Object obj) {
+        return null;  
+    }
     
 }
