@@ -24,10 +24,24 @@ public class Serializer {
     /**
      *
      * @param obj
-     * @return
+     * @return Serialized object in XML format
      */
     public Document serialize(Object obj) {
+        //
         return null;  
     }
+    
+    // Programming Plan:
+            // The element "object" will have two attributes:
+                // Class: Name of the object's class (eg. *.class) -> Get reflectively 
+                // ID: Unique identifier number of the object -> IdentityHashMap
+            
+            // Each "object" element will have >=0 "field" elements
+                // Attributes:
+                    // Name
+                    // Declaring Class -> get reflectively
+                        // If field type is primitive, store as "value" element
+    
+    
     
 }
