@@ -17,10 +17,13 @@ import java.util.*;
  * @author vektor
  */
 public class Serializer {
-    
+
     // Assignment specification:
     // Serialization will be invoked with the following method:
+    // serialize(..) and serialzeHelper(..) from "Java: Reflection in Action"
 
+    // Going to start with adapting textbook snippets, and then
+    // refactoring. Test completed methods before/after refactoring.
     /**
      *
      * @param obj
@@ -34,6 +37,8 @@ public class Serializer {
     // Programming Plan:
             // The element "object" will have two attributes:
                 // Class: Name of the object's class (eg. *.class) -> Get reflectively 
+    
+    
                 // ID: Unique identifier number of the object -> IdentityHashMap
             
             // Each "object" element will have >=0 "field" elements
