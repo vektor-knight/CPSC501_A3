@@ -8,6 +8,7 @@ package cpsc501_a3;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.List;
@@ -52,7 +53,36 @@ public class Deserializer {
         }
     }
 
-    private static void assignFieldValues(Map table, List<?> objectList) {
+    private static void assignFieldValues(Map table, List<?> objectList) throws Exception {
+        for (int i = 0; i < objectList.size(); i++) {
+            Element objectElement = (Element) objectList.get(i);
+            Object instance = table.get(objectElement.getAttributeValue("id"));
+            List fieldElements = objectElement.getChildren();
+            
+            if (!instance.getClass().isArray()) {
+                for (int j = 0; j < fieldElements.size(); j++) {
+                    Element fieldElement = (Element) fieldElements.get(j);
+                    String className = fieldElement.getAttributeValue("declaringclass");
+                    Class fieldDeclaring = Class.forName(className);
+                    String fieldName = fieldElement.getAttributeValue("name");
+                    Field f = fieldDeclaring.getDeclaredField(fieldName);
+                    
+                    if (!Modifier.isPublic(f.getModifiers())) {
+                        f.setAccessible(true);
+                    }
+                    Element e = (Element) fieldElement.getChildren().get(0);
+                    f.set(instance, deserializeValue(e, f.getType(), table));                    
+                }
+            } else {
+                Class componentType = instance.getClass().getComponentType();
+                for (int j = 0; j < fieldElements.size(); j++) {
+                    Array.set(instance, j, deserializeValue((Element) fieldElements.get(j), componentType, table));
+                }
+            }
+        }
+    }
+
+    private static Object deserializeValue(Element e, Class<?> type, Map table) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
