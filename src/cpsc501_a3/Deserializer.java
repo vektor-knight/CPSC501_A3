@@ -18,7 +18,8 @@ public class Deserializer {
     // Adapted from Java: Reflection in Action
     
     public Object deserialize(Document document) throws Exception {
-        List objectList = document.getRootElement().getChildren();
+        List<?> objectList;
+        objectList = document.getRootElement().getChildren();
         
     }
     
