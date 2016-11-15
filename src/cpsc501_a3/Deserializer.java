@@ -6,6 +6,7 @@
        
 package cpsc501_a3;
 
+import java.util.List;
 import org.jdom2.Document;
 
 /**
@@ -14,7 +15,10 @@ import org.jdom2.Document;
  */
 public class Deserializer {
     
-    public Object deserialize(Document document) {
+    // Adapted from Java: Reflection in Action
+    
+    public Object deserialize(Document document) throws Exception {
+        List objectList = document.getRootElement().getChildren();
         
     }
     
