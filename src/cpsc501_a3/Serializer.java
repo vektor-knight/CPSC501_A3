@@ -49,6 +49,14 @@ public class Serializer {
                     // Declaring Class -> get reflectively
                         // If field type is primitive, store as "value" element
 
+    /**
+     * 
+     * @param obj
+     * @param document
+     * @param identityHashMap
+     * @return
+     * @throws Exception 
+     */
     private static Document serializeHelper(Object obj, Document document, IdentityHashMap identityHashMap) throws Exception {
         // Step 1: Create unique identifier number for object being serialized
         String id = Integer.toString(identityHashMap.size());
@@ -97,10 +105,32 @@ public class Serializer {
     }
    // This method does not create two separate serializeVariable templates now
     
+    /**
+     * 
+     * @param fieldType
+     * @param child
+     * @param document
+     * @param identityHashMap
+     * @return
+     * @throws Exception 
+     */
     private static Element serializeVariable(Class fieldType, Object child, Document document, IdentityHashMap identityHashMap) throws Exception {
         if (child == null) {
             return new Element("null");
-        } else if (!)
+        } else if (!fieldType.isPrimitive()) {
+            Element reference = new Element("reference");
+            if (identityHashMap.containsKey(child)) {
+                reference.setText(identityHashMap.get(child).toString());
+            } else {
+                reference.setText(Integer.toString(identityHashMap.size()));
+                serializeHelper(child, document, identityHashMap);
+            }
+            return reference;
+        } else {
+            Element value = new Element("value");
+            value.setText(child.toString());
+            return value;
+        }
     }
     
 }
