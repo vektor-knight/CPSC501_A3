@@ -97,7 +97,7 @@ public class Serializer {
     }
    // This method does not create two separate serializeVariable templates now
     
-    private static String serializeVariable(Class fieldType, Object child, Document document, IdentityHashMap identityHashMap) throws Exception {
+    private static Element serializeVariable(Class fieldType, Object child, Document document, IdentityHashMap identityHashMap) throws Exception {
         if (child == null) {
             return new Element("null");
         } else if (!)
