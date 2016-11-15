@@ -18,6 +18,10 @@ import java.util.*;
  */
 public class Serializer {
 
+    private static String serializeVariable(Class fieldType, Object child, Document document, IdentityHashMap identityHashMap) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
         
         // Assignment specification:
     // Serialization will be invoked with the following method:
@@ -32,7 +36,7 @@ public class Serializer {
      * @throws java.lang.Exception
      */
     public Document serialize(Object obj) throws Exception {
-        //
+        // Wrapper of serializeHelper(..)
         return serializeHelper(obj, new Document(new Element("serialized")), new IdentityHashMap());  
     }
     
@@ -48,7 +52,54 @@ public class Serializer {
                     // Name
                     // Declaring Class -> get reflectively
                         // If field type is primitive, store as "value" element
-   
+
+    private static Document serializeHelper(Object obj, Document document, IdentityHashMap identityHashMap) throws Exception {
+        // Step 1: Create unique identifier number for object being serialized
+        String id = Integer.toString(identityHashMap.size());
+        identityHashMap.put(obj, id);   // Object is the "source", Document is the "target"
+        Class classObject = obj.getClass();
+        // End Step 1.
+        // Step 2: Create XML element for the source.
+        Element objectElement = new Element("object");
+        objectElement.setAttribute("class", classObject.getName());
+        objectElement.setAttribute("id", id);
+        document.getRootElement().addContent(objectElement);
+        // End Step 2.
+        // Step 3: Handle field elements
+        if (!classObject.isArray()) {
+            // Step 4: Get nonstatic fields
+            Field[] fields = classObject.getDeclaredFields();
+            // End Step 4.
+            for (Field f : fields) {
+                if (!Modifier.isPublic(f.getModifiers())) {
+                    f.setAccessible(true); // Step 5: Make fields accessible, if required.
+                } 
+                // Step 6: Create new XML elements from field elements
+                Element fieldElement = new Element("field");
+                fieldElement.setAttribute("name", f.getName());
+                Class declaringClass = f.getDeclaringClass();
+                fieldElement.setAttribute("declaringclass", declaringClass.getName());
+                Class fieldType = f.getType();
+                Object child = f.get(obj);
+                
+                if (Modifier.isTransient(f.getModifiers())) {
+                    child = null;
+                }
+                fieldElement.addContent(serializeVariable(fieldType, child, document, identityHashMap));
+                objectElement.addContent(fieldElement);
+            }
+            // Step 7: Add array components to XML document
+        } else {
+            Class componentType = classObject.getComponentType();
+            int length = Array.getLength(obj);
+            objectElement.setAttribute("length", Integer.toString(length));
+            for (int i = 0; i < length; i++) {
+                objectElement.addContent(serializeVariable(componentType, Array.get(obj, i), document, identityHashMap));
+            }
+        }
+        return document;
+    }
+   // This method does not create two separate serializeVariable templates now
     
     
 }
