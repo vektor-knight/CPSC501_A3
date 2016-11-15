@@ -18,11 +18,7 @@ import java.util.*;
  */
 public class Serializer {
 
-    private static String serializeVariable(Class fieldType, Object child, Document document, IdentityHashMap identityHashMap) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-        
+       
         // Assignment specification:
     // Serialization will be invoked with the following method:
     // serialize(..) and serialzeHelper(..) from "Java: Reflection in Action"
@@ -101,5 +97,10 @@ public class Serializer {
     }
    // This method does not create two separate serializeVariable templates now
     
+    private static String serializeVariable(Class fieldType, Object child, Document document, IdentityHashMap identityHashMap) throws Exception {
+        if (child == null) {
+            return new Element("null");
+        } else if (!)
+    }
     
 }
