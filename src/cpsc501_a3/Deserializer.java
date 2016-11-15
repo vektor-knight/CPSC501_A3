@@ -19,7 +19,7 @@ public class Deserializer {
     
     // Adapted from Java: Reflection in Action
     
-    public Object deserialize(Document document) throws Exception {
+    public static Object deserialize(Document document) throws Exception {
         List<?> objectList;
         objectList = document.getRootElement().getChildren();
         Map table = new HashMap();
@@ -29,11 +29,11 @@ public class Deserializer {
         return table.get("0");  
     }
 
-    private void createInstances(Map table, List<?> objectList) {
+    private static void createInstances(Map table, List<?> objectList) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void assignFieldValues(Map table, List<?> objectList) {
+    private static void assignFieldValues(Map table, List<?> objectList) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
