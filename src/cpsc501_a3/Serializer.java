@@ -133,4 +133,15 @@ public class Serializer {
         }
     }
     
+    // At this point, noted that serialize(..) is the only method
+    // for which tests are being generated. This is because each
+    // subsequent helper method is ultimately returning a Document,
+    // instead of an object of type Element. So, when the constituent
+    // test suite is being generated, it is being done so for serialize(..),
+    // since this is where the "pointer" or "reference" to the actual Document
+    // is being passed to. In the future, when test objects are created,
+    // we will only be testing them against this method. If the test passes,
+    // it will be a consequence that all helper methods are doing their jobs
+    // correctly.
+    
 }
