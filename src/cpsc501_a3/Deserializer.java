@@ -6,7 +6,9 @@
        
 package cpsc501_a3;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.jdom2.Document;
 
 /**
@@ -20,7 +22,19 @@ public class Deserializer {
     public Object deserialize(Document document) throws Exception {
         List<?> objectList;
         objectList = document.getRootElement().getChildren();
+        Map table = new HashMap();
         
+        createInstances(table, objectList);
+        assignFieldValues(table, objectList);
+        return table.get("0");  
+    }
+
+    private void createInstances(Map table, List<?> objectList) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void assignFieldValues(Map table, List<?> objectList) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
