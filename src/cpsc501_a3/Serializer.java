@@ -18,7 +18,8 @@ import java.util.*;
  */
 public class Serializer {
 
-    // Assignment specification:
+        
+        // Assignment specification:
     // Serialization will be invoked with the following method:
     // serialize(..) and serialzeHelper(..) from "Java: Reflection in Action"
 
@@ -47,11 +48,7 @@ public class Serializer {
                     // Name
                     // Declaring Class -> get reflectively
                         // If field type is primitive, store as "value" element
-
-    private static Document serializeHelper(Object obj, Document document, IdentityHashMap identityHashMap) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+   
     
     
 }
