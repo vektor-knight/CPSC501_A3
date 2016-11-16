@@ -8,6 +8,7 @@ package cpsc501_a3;
 import Sender.ObjectBundle.PrimitiveObject;
 import Sender.Serializer;
 import org.jdom2.Document;
+import org.jdom2.output.XMLOutputter;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -26,6 +27,7 @@ public class SerializerTest {
     
     @BeforeClass
     public static void setUpClass() {
+
     }
     
     @AfterClass
@@ -39,6 +41,27 @@ public class SerializerTest {
     @After
     public void tearDown() {
     }
+    
+    @Test
+    public void testPrimitiveObject() throws Exception {
+        PrimitiveObject x;
+        x = new PrimitiveObject(1);
+        
+        String expResult = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                            "<serialized>\n" +
+                                "  <object class=\"Sender.ObjectBundle.PrimitiveObject\" id=\"0\">\n" +
+                                "    <field name=\"integerField\" declaringclass=\"Sender.ObjectBundle.PrimitiveObject\">\n" +
+                                "      <value>1</value>\n" +
+                                "    </field>\n" +
+                                "  </object>\n" +
+                            "</serialized>";
+        Serializer instance = new Serializer();
+        XMLOutputter output = new XMLOutputter();
+        
+        Document result = instance.serialize(x);
+        String toTest = output.outputString(result);
+        assertEquals(expResult, toTest);
+    }
 
     /**
      * Test of serialize method, of class Serializer.
@@ -48,7 +71,8 @@ public class SerializerTest {
         System.out.println("serialize");
         Object obj = new PrimitiveObject(5);
         Serializer instance = new Serializer();
-        Document expResult = null;
+   //     Document expResult = new Serializer().serialize(obj);
+        String expResult = "<[Document:  No DOCTYPE declaration, Root is [Element: <serialized/>]]>";
         Document result = instance.serialize(obj);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
