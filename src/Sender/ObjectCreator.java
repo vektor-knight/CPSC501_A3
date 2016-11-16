@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class ObjectCreator {
     public static Scanner userInput = new Scanner(System.in);
     
-    public static void main(String[] args) {
+    public ObjectCreator /*main*/(String[] args) {
 		System.out.print("Serialization menu. Choose one to create: \n"
 				+ "1. Simple int-type primitive object \n"
 				+ "2. Object containing references to other objects, including circular ones \n"
@@ -46,6 +46,8 @@ public class ObjectCreator {
                         selection = new CollectionObject(false);
                         break;
                 }
+                
+                return selection;
     // Programming Plan:
         // Since the Serializer was created first in this branch, the 
     // implementation of ObjectCreator will finally allow for
