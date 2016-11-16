@@ -20,10 +20,10 @@ public class Client {
     public static void sendDoc(String IP, int port, byte[] data) throws IOException {
         try {
             Socket sock = new Socket(IP, port);
-            OutputStream output = sock.getOutputStream();
-            output.write(data, 0, data.length);
-            output.flush();
-            output.close();
+            try (OutputStream output = sock.getOutputStream()) {
+                output.write(data, 0, data.length);
+                output.flush();
+            }
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
