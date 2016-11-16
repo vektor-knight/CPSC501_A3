@@ -83,14 +83,44 @@ public class Deserializer {
         }
     }
 
-    private static Object deserializeValue(Element e, Class<?> type, Map table) {
-        String elementType = e.getName();
-        if (elementType.equals("null")) {
+    private static Object deserializeValue(Element e, Class<?> type, Map table) throws ClassNotFoundException {
+        String eType = e.getName();
+        if (eType.equals("null")) {
             return null;
-        } else if (elementType.equals("reference")) {
+        }
+        else if (eType.equals("reference")) {
             return table.get(e.getText());
-        } else {
-            
+        }
+        else {
+            if (type.equals(boolean.class)) {
+                if (e.getText().equals("true")) {
+                    return Boolean.TRUE;
+                }
+                else {
+                    return Boolean.FALSE;
+                }
+            }
+            else if (type.equals(byte.class)) {
+                return Byte.valueOf(e.getText());
+            }
+            else if (type.equals(short.class)) {
+                return Short.valueOf(e.getText());
+            }
+            else if(type.equals(int.class)) {
+                return Integer.valueOf(e.getText());
+            }
+            else if(type.equals(long.class)) {
+                return Long.valueOf(e.getText());
+            }
+            else if(type.equals(float.class)) {
+                return Float.valueOf(e.getText());
+            }
+            else if(type.equals(double.class)) {
+                return Double.valueOf(e.getText());
+            }
+            else if(type.equals(char.class)) {
+                return new Character(e.getText().charAt(0));
+            }
         }
     }
     
