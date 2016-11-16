@@ -119,7 +119,10 @@ public class Deserializer {
                 return Double.valueOf(e.getText());
             }
             else if(type.equals(char.class)) {
-                return new Character(e.getText().charAt(0));
+                return e.getText().charAt(0);
+            }
+            else {
+                return e.getText();
             }
         }
     }
