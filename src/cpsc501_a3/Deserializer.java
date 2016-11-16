@@ -23,6 +23,7 @@ import org.jdom2.Element;
 public class Deserializer {
     
     // Adapted from Java: Reflection in Action
+    // Method calls such as "Mopex" changed to reflective ones.
     
     public static Object deserialize(Document document) throws Exception {
         List<?> objectList;
@@ -83,7 +84,14 @@ public class Deserializer {
     }
 
     private static Object deserializeValue(Element e, Class<?> type, Map table) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String elementType = e.getName();
+        if (elementType.equals("null")) {
+            return null;
+        } else if (elementType.equals("reference")) {
+            return table.get(e.getText());
+        } else {
+            
+        }
     }
     
 }
