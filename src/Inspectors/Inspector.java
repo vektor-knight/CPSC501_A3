@@ -1,4 +1,4 @@
-package Receiver;
+package Inspectors;
 
 import java.util.Vector;
 import java.lang.reflect.*;

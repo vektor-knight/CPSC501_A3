@@ -11,7 +11,7 @@ rember to include my name at the top of the file toindicate where you
 got the original code from
 ***********************************************************************
 ========================================================================*/
-package Receiver;
+package Inspectors;
 
 import java.util.*;
 import java.lang.reflect.*;

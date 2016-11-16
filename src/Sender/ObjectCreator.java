@@ -1,24 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Sender;
 
 import Sender.ObjectBundle.CollectionObject;
 import Sender.ObjectBundle.ObjectReferences;
 import Sender.ObjectBundle.PrimitiveArray;
 import Sender.ObjectBundle.PrimitiveObject;
+import Sender.ObjectBundle.ReferenceArray;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Scanner;
+import org.jdom2.Document;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 /**
- *
+ * Switch polymorphism and factory pattern adapted from:
+ * 
+ * https://en.wikipedia.org/wiki/Abstract_factory_pattern
  * @author vektor
  */
 public class ObjectCreator {
     public static Scanner userInput = new Scanner(System.in);
     
-    public ObjectCreator /*main*/(String[] args) {
+    public static void main(String[] args) throws Exception {
 		System.out.print("Serialization menu. Choose one to create: \n"
 				+ "1. Simple int-type primitive object \n"
 				+ "2. Object containing references to other objects, including circular ones \n"
@@ -40,14 +43,36 @@ public class ObjectCreator {
                         selection = new PrimitiveArray(false);
                         break;
                     case '4':
-                        selection = new ObjectReferences(false);
+                        selection = new ReferenceArray(false);
                         break;
                     case '5':
                         selection = new CollectionObject(false);
                         break;
                 }
                 
-                return selection;
+                // Send the object selection to a Serializer: (ie. ObjectCreator -(object)-> Serializer)
+                Document doc = new Serializer().serialize(selection);
+                
+                // Serialize the document into JDOM format:
+                XMLOutputter output = new XMLOutputter();
+                output.setFormat(Format.getPrettyFormat());
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                try {
+                    output.output(doc, stream);
+                    output.output(doc, System.out); // Output to terminal
+                } catch (IOException e) {
+                }
+                
+                System.out.println("\n Sending JDOM to target machine for deserialization.");
+                System.out.print("Enter target IP: ");
+                String IP = userInput.nextLine();
+                System.out.print("Enter port: ");
+                int port = userInput.nextInt();
+                
+                // Open socket and send bytestream to Server
+                Client.sendDoc(IP, port, stream.toByteArray());
+
+                
     // Programming Plan:
         // Since the Serializer was created first in this branch, the 
     // implementation of ObjectCreator will finally allow for

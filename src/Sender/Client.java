@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Sender;
 
 import java.io.IOException;
@@ -13,6 +8,7 @@ import java.net.UnknownHostException;
 /**
  * Referenced from:
  * https://github.com/Scraniel/CPSC501-ReflectiveSerializer/blob/master/ReflectiveSerializer/src/sender/Client.java
+ * General process adapted from Zahra Sahaf's TA code.
  * @author vektor
  */
 public class Client {
@@ -25,9 +21,7 @@ public class Client {
                 output.flush();
             }
         } catch (UnknownHostException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
