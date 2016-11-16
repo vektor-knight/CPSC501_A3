@@ -5,6 +5,8 @@
  */
 package cpsc501_a3;
 
+import Sender.ObjectBundle.PrimitiveObject;
+import Sender.Serializer;
 import org.jdom2.Document;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -44,7 +46,7 @@ public class SerializerTest {
     @Test
     public void testSerialize() throws Exception {
         System.out.println("serialize");
-        Object obj = null;
+        Object obj = new PrimitiveObject(5);
         Serializer instance = new Serializer();
         Document expResult = null;
         Document result = instance.serialize(obj);
