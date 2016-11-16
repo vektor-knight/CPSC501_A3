@@ -5,11 +5,19 @@
  */
 package Sender;
 
+import Sender.ObjectBundle.CollectionObject;
+import Sender.ObjectBundle.ObjectReferences;
+import Sender.ObjectBundle.PrimitiveArray;
+import Sender.ObjectBundle.PrimitiveObject;
+import java.util.Scanner;
+
 /**
  *
  * @author vektor
  */
 public class ObjectCreator {
+    public static Scanner userInput = new Scanner(System.in);
+    
     public static void main(String[] args) {
 		System.out.print("Serialization menu. Choose one to create: \n"
 				+ "1. Simple int-type primitive object \n"
@@ -18,6 +26,26 @@ public class ObjectCreator {
 				+ "4. Array of object references \n"
 				+ "5. Java Collection object \n"
 				+ "Selection:  ");
+                
+                Object selection = null;
+                
+                switch(userInput.nextLine().charAt(0)) {
+                    case '1':
+                        selection = new PrimitiveObject(false);
+                        break;
+                    case '2':
+                        selection = new ObjectReferences(false);
+                        break;
+                    case '3':
+                        selection = new PrimitiveArray(false);
+                        break;
+                    case '4':
+                        selection = new ObjectReferences(false);
+                        break;
+                    case '5':
+                        selection = new CollectionObject(false);
+                        break;
+                }
     // Programming Plan:
         // Since the Serializer was created first in this branch, the 
     // implementation of ObjectCreator will finally allow for
